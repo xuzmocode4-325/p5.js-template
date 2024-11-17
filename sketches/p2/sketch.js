@@ -1,4 +1,4 @@
-// P_1_0_01
+// P_1_1_1_01
 //
 // Generative Gestaltung – Creative Coding im Web
 // ISBN: 978-3-87439-902-9, First Edition, Hermann Schmidt, Mainz, 2018
@@ -18,45 +18,37 @@
 // limitations under the License.
 
 /**
- * changing colors and size by moving the mouse
+ * draw the color spectrum by moving the mouse
  *
  * MOUSE
- * position x          : size
- * position y          : color
+ * position x/y        : resolution
  *
  * KEYS
  * s                   : save png
  */
 'use strict';
 
-const resizeCanvasToParent = () => {
-  const canvasParent = document.getElementById('art-div');
-  const { width, height } = canvasParent.getBoundingClientRect();
-  resizeCanvas(width, height);
-}
+var stepX;
+var stepY;
 
 function setup() {
-  const canvasParent = document.getElementById('art-div');
-  const { width, height } = canvasParent.getBoundingClientRect();
-  const sketchCanvas = createCanvas(width, height);
-  sketchCanvas.parent(canvasParent);
-  window.addEventListener('resize', resizeCanvasToParent);
-  
-  noCursor();
-
-  colorMode(HSB, 360, 100, 100);
-  rectMode(CENTER);
+  createCanvas(800, 400);
   noStroke();
+  colorMode(HSB, width, height, 100);
 }
 
 function draw() {
-  background(mouseY / 2, 100, 100);
+  stepX = mouseX + 2;
+  stepY = mouseY + 2;
 
-  fill(width / 2 - mouseY / 2, 100, 100);
-  rect(width / 2, height / 2, mouseX + 1, mouseX + 1);
+  for (var gridY = 0; gridY < height; gridY += stepY) {
+    for (var gridX = 0; gridX < width; gridX += stepX) {
+      fill(gridX, height - gridY, 100);
+      rect(gridX, gridY, stepX, stepY);
+    }
+  }
 }
 
 function keyPressed() {
   if (key == 's' || key == 'S') saveCanvas(gd.timestamp(), 'png');
 }
-

@@ -46,17 +46,27 @@ function setup() {
 
   colorMode(HSB, 360, 100, 100);
   rectMode(CENTER);
-  noStroke();
+
 }
 
-function draw() {
-  background(mouseY / 2, 100, 100);
-
-  fill(width / 2 - mouseY / 2, 100, 100);
-  rect(width / 2, height / 2, mouseX + 1, mouseX + 1);
+function draw() { 
+  translate(40, 15);
+  drawStar();
+  translate(20, 50);
+  drawStar();
 }
+
+
+function drawStar() {
+  line(0, -10, 0, 10);
+  line(-8, -5, 8, 5);
+  line(-8, 5, 8, -5);
+}
+
+
+
+
 
 function keyPressed() {
   if (key == 's' || key == 'S') saveCanvas(gd.timestamp(), 'png');
 }
-
