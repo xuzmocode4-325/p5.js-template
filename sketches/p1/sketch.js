@@ -50,10 +50,12 @@ function setup() {
 }
 
 function draw() {
-  background(mouseY / 2, 100, 100);
+  let x = map(mouseX, 0, width, 0, 360)
+  
+  background(x, 100, 100);
 
-  fill(width / 2 - mouseY / 2, 100, 100);
-  rect(width / 2, height / 2, mouseX + 1, mouseX + 1);
+  fill(360 - x, 100, 100);
+  rect(width / 2, height / 2, mouseY + 1, mouseY + 1);
 }
 
 function keyPressed() {

@@ -31,11 +31,27 @@
 var stepX;
 var stepY;
 
-function setup() {
-  createCanvas(800, 400);
-  noStroke();
-  colorMode(HSB, width, height, 100);
+const resizeCanvasToParent = () => {
+  const canvasParent = document.getElementById('art-div');
+  const { width, height } = canvasParent.getBoundingClientRect();
+  resizeCanvas(width, height);
 }
+
+function setup() {
+  const canvasParent = document.getElementById('art-div');
+  const { width, height } = canvasParent.getBoundingClientRect();
+  const sketchCanvas = createCanvas(width, height);
+  sketchCanvas.parent(canvasParent);
+  window.addEventListener('resize', resizeCanvasToParent);
+
+  noStroke()
+  noCursor();
+  colorMode(HSB, width, height,  100);
+  resizeCanvas(width, height);
+}
+
+
+
 
 function draw() {
   stepX = mouseX + 2;
